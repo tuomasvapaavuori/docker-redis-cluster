@@ -1,7 +1,7 @@
 build:
-	docker build -t rediscluster .
+	docker build -t redis-cluster .
 rebuild:
-	docker build --no-cache -t rediscluster .
+	docker build --no-cache -t redis-cluster .
 down:
 	docker-compose down
 up:
@@ -11,18 +11,18 @@ up:
 monitor:
 	docker-compose logs
 run-cli:
-	docker-compose exec redis-cluster redis-cli -c -p 7000
+	docker-compose exec redis-cluster redis-cli -c -p $(REDIS_PORT)
 run-shell:
 	docker-compose exec redis-cluster /bin/bash
 stop-swarm:
-	docker stack rm rediscluster
+	docker stack rm redis-cluster
 	docker swarm leave --force
 start-swarm:
 	make stop-swarm
 	make build
 	docker swarm init
-	docker stack deploy -c docker-compose.yml rediscluster
+	docker stack deploy -c docker-compose.yml redis-cluster
 push:
 	make build
-	docker tag rediscluster riandyrn/rediscluster:latest
-	docker push riandyrn/rediscluster:latest
+	docker tag redis-cluster tuomasvapaavuori/redis-cluster:latest
+	docker push tuomasvapaavuori/redis-cluster:latest
