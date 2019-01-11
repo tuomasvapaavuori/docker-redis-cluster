@@ -1,9 +1,10 @@
 version: "3"
 services:
   redis-cluster:
-    image: rediscluster:latest
+    image: tuomasvapaavuori/redis-cluster:3.0.6
     environment:
       - IP=0.0.0.0
+      - REDIS_PORT_LIST=7005,7006,7007,7008,7009,7010
     ports:
-      - "7000-7005:7000-7005"
+      - "7005-7010:7005-7010"
 
